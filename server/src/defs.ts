@@ -2,22 +2,22 @@ import { gql } from 'apollo-server'
 
 export const TypeDefs = gql`
   type Card {
-    id: ID
-    label: String
-    sections: [Section]
+    id: ID!
+    label: String!
+    sections: [Section!]!
   }
 
   type Section {
-    id: ID
-    label: String
+    id: ID!
+    label: String!
     weight: Int
-    items: [Item]
+    items: [Item!]!
   }
 
   type Item {
-    id: ID
-    label: String
-    status: Status
+    id: ID!
+    label: String!
+    status: Status!
   }
 
   enum Status {
@@ -26,6 +26,11 @@ export const TypeDefs = gql`
   }
 
   type Query {
-    fetchCards: [Card]
+    fetchCards: [Card!]
+  }
+
+  type Mutation {
+    createStartup(label: String): Card
+    createCard(label: String): Card
   }
 `
