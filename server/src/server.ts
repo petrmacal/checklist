@@ -4,7 +4,7 @@ import { createServer } from "http"
 import cors from "cors"
 import { schema } from "./schema"
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 const app = express()
 app.use("*", cors())
@@ -17,5 +17,5 @@ server.applyMiddleware({ app, path: "/graphql" })
 const httpServer = createServer(app)
 
 httpServer.listen({ port: PORT }, (): void =>
-  console.log(`Apollo server is running on http://localhost:${3000}/graphql`)
+  console.log(`Apollo server is running on http://localhost:${PORT}/graphql`)
 )
