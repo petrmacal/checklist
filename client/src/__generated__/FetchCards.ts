@@ -17,16 +17,16 @@ export interface FetchCards_fetchCards_sections {
   __typename: "Section";
   id: string;
   label: string;
-  items: (FetchCards_fetchCards_sections_items | null)[];
+  items: FetchCards_fetchCards_sections_items[];
 }
 
 export interface FetchCards_fetchCards {
   __typename: "Card";
   id: string;
   label: string;
-  sections: (FetchCards_fetchCards_sections | null)[] | null;
+  sections: FetchCards_fetchCards_sections[];
 }
 
 export interface FetchCards {
-  fetchCards: (FetchCards_fetchCards | null)[] | null;
+  fetchCards: FetchCards_fetchCards[] | null;
 }
