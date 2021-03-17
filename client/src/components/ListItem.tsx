@@ -33,7 +33,7 @@ export default ({ task, cardId, eligible }: ListItemProps) => {
   }
 
   return (
-    <div style={{display: 'flex', alignContent: 'center', alignItems: 'center', cursor: 'pointer'}} onClick={() => handleClick()}>
+    <div style={{display: 'flex', alignContent: 'center', alignItems: 'center', cursor: 'pointer', gap: 12}} onClick={() => handleClick()}>
       <Checkbox
         checked={status}
         disabled={!eligible}

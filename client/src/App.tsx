@@ -44,23 +44,24 @@ const Cards: React.FC<any> = () => {
     <Row gutter={24}>
       {modifiedData.map(card => (
         <Col key={card.id}>
-          <Card>
-            <h2>{card.label}</h2>
-            {card.sections.map((section, i, sections) => (
-              <React.Fragment key={section.id}>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                  <Avatar
-                    style={{backgroundColor: section.done && sections.slice(0, i).every(s => s.eligible) && section.eligible && '#000000' || '#aaaaaa', transition: '.5s all'}}>
-                      {i + 1}
-                  </Avatar>
-                  <h3>{section.label}</h3>
-                </div>
-                {section.items.map(task => <ListItem key={task.id} cardId={card.id} eligible={sections.slice(0, i).every(s => s.eligible) && section.eligible} task={task} />)}
-              </React.Fragment>
-            ))}
-            {card.sections.every(section => section.done) && (
-              <Quote />
-            )}
+          <Card title={<h3 style={{margin:0}}>{card.label}</h3>}>
+            <React.Fragment>
+              {card.sections.map((section, i, sections) => (
+                <section style={{marginBottom:20}} key={section.id}>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6}}>
+                    <Avatar
+                      style={{backgroundColor: section.done && sections.slice(0, i).every(s => s.eligible) && section.eligible && '#000000' || '#aaaaaa', transition: '.5s all'}}>
+                        {i + 1}
+                    </Avatar>
+                    <h3 style={{margin:0}}>{section.label}</h3>
+                  </div>
+                  {section.items.map(task => <ListItem key={task.id} cardId={card.id} eligible={sections.slice(0, i).every(s => s.eligible) && section.eligible} task={task} />)}
+                </section>
+              ))}
+              {card.sections.every(section => section.done) && (
+                <Quote />
+              )}
+            </React.Fragment>
           </Card>
         </Col>
       ))}
