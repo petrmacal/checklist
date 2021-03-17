@@ -72,7 +72,26 @@ export const Resolvers = {
       const card = {
         id: uuid(),
         label: args.label,
-        sections: []
+        sections: [
+          {
+            id: uuid(),
+            label: 'Foundation',
+            weight: 1,
+            items: []
+          },
+          {
+            id: uuid(),
+            label: 'Discovery',
+            weight: 1,
+            items: []
+          },
+          {
+            id: uuid(),
+            label: 'Delivery',
+            weight: 1,
+            items: []
+          }
+        ]
       }
 
       cards.push(card)
