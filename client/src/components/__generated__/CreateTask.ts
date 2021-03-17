@@ -4,20 +4,22 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: ToggleTask
+// GraphQL mutation operation: CreateTask
 // ====================================================
 
-export interface ToggleTask_toggleTask {
+export interface CreateTask_createTask {
   __typename: "Item";
+  label: string;
   status: boolean;
   id: string;
 }
 
-export interface ToggleTask {
-  toggleTask: ToggleTask_toggleTask;
+export interface CreateTask {
+  createTask: CreateTask_createTask;
 }
 
-export interface ToggleTaskVariables {
+export interface CreateTaskVariables {
   cardId: string;
-  taskId: string;
+  sectionId: string;
+  label?: string | null;
 }
