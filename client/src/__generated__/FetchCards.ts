@@ -11,6 +11,7 @@ export interface FetchCards_fetchCards_sections_items {
   __typename: "Item";
   id: string;
   label: string;
+  status: boolean;
 }
 
 export interface FetchCards_fetchCards_sections {
