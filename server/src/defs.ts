@@ -27,6 +27,7 @@ export const TypeDefs = gql`
   type Mutation {
     createStartup(label: String): Card
     createCard(label: String): Card
-    toggleTask(cardId: ID!, taskId: ID!): Item
+    toggleTask(cardId: ID!, taskId: ID!): Item!
+    createTask(cardId: ID!, sectionId: ID!, label: String): Item!
   }
 `

@@ -7,6 +7,7 @@ interface Card {
 }
 
 interface Section {
+  id: number | string
   label: string,
   weight: number,
   items: Item[]
@@ -76,6 +77,21 @@ export const Resolvers = {
 
       cards.push(card)
       return card
+    },
+    async createTask(_: any, args: any) {
+      const { cardId, sectionId, label } = args
+      const task = {
+        id: uuid(),
+        label,
+        status: false
+      }
+
+      cards
+        .find(card => card.id === cardId)?.sections
+        .find(section => section.id === sectionId)?.items
+        .push(task)
+
+      return task
     },
     async toggleTask(_: any, args: any) {
       const card = cards.find(card => card.id === args.cardId)
