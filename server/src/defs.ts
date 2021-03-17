@@ -17,12 +17,7 @@ export const TypeDefs = gql`
   type Item {
     id: ID!
     label: String!
-    status: Status!
-  }
-
-  enum Status {
-    IN_PROGRESS,
-    DONE
+    status: Boolean!
   }
 
   type Query {
@@ -32,5 +27,6 @@ export const TypeDefs = gql`
   type Mutation {
     createStartup(label: String): Card
     createCard(label: String): Card
+    toggleTask(cardId: ID!, taskId: ID!): Item
   }
 `

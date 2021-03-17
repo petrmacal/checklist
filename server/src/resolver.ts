@@ -13,8 +13,9 @@ interface Section {
 }
 
 interface Item {
+  id: number | string
   label: string
-  status: number
+  status: boolean
 }
 
 const cards: Card[] = []
@@ -36,10 +37,10 @@ export const Resolvers = {
             label: 'Foundation',
             weight: 1,
             items: [
-              { id: uuid(), label: 'Setup virtual office', status: 0 },
-              { id: uuid(), label: 'Set mission & vision', status: 0 },
-              { id: uuid(), label: 'Select business name', status: 0 },
-              { id: uuid(), label: 'Buy domains', status: 0 }
+              { id: uuid(), label: 'Setup virtual office', status: false },
+              { id: uuid(), label: 'Set mission & vision', status: false },
+              { id: uuid(), label: 'Select business name', status: false },
+              { id: uuid(), label: 'Buy domains', status: false }
             ]
           },
           {
@@ -47,8 +48,8 @@ export const Resolvers = {
             label: 'Discovery',
             weight: 1,
             items: [
-              { id: uuid(), label: 'Create roadmap', status: 0 },
-              { id: uuid(), label: 'Competitor analysis', status: 0 }
+              { id: uuid(), label: 'Create roadmap', status: false },
+              { id: uuid(), label: 'Competitor analysis', status: false }
             ]
           },
           {
@@ -56,8 +57,8 @@ export const Resolvers = {
             label: 'Delivery',
             weight: 1,
             items: [
-              { id: uuid(), label: 'Release marketing website', status: 0 },
-              { id: uuid(), label: 'Release MVP', status: 0 }
+              { id: uuid(), label: 'Release marketing website', status: false },
+              { id: uuid(), label: 'Release MVP', status: false }
             ]
           }
         ]
@@ -75,6 +76,26 @@ export const Resolvers = {
 
       cards.push(card)
       return card
+    },
+    async toggleTask(_: any, args: any) {
+      const card = cards.find(card => card.id === args.cardId)
+      if (!card) return
+  
+      let task: Item | undefined
+      card.sections.some(section => {
+        const found = section.items.find(item => item.id === args.taskId)
+        if (found) {
+          task = found
+          return task
+        }
+      })
+  
+      if (task) {
+        task.status = !task.status
+        return task
+      }
+  
+      return task
     }
   }
 }
