@@ -49,7 +49,7 @@ const Cards: React.FC<any> = () => {
               {card.sections.map((section, i) => (
                 <Section key={section.id} section={section} index={i+1} cardId={card.id} />
               ))}
-              {card.sections.every(section => section.done) && (
+              {card.sections.every(section => section.done) && card.sections.reduce((acc, s) => acc + s.items.length, 0) > 0 && (
                 <Quote />
               )}
             </React.Fragment>
