@@ -3,7 +3,7 @@ import { PlusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
 import ListItem from './ListItem'
 import { FetchCards_fetchCards_sections } from '../__generated__/FetchCards'
 import { CreateTask, CreateTaskVariables } from './__generated__/CreateTask'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 
 export interface EnrichedSection extends FetchCards_fetchCards_sections {
@@ -29,6 +29,7 @@ mutation CreateTask($cardId: ID!, $sectionId: ID!, $label: String) {
 
 export default function Section({ section, index, cardId }: SectionProps) {
   const [isExpanded, setExpand] = useState(false)
+  const ref = useRef<any>()
   const [addTask, { data }] = useMutation<CreateTask, CreateTaskVariables>(CREATE_TASK, {
     update(cache, { data }) {
       const createTask = data?.createTask
@@ -54,6 +55,9 @@ export default function Section({ section, index, cardId }: SectionProps) {
     }
   })
   useEffect(() => { setExpand(false) }, [data])
+  useEffect(() => {
+    isExpanded && ref.current.focus()
+  }, [isExpanded])
 
   const Icon = isExpanded ? CloseCircleOutlined : PlusCircleOutlined
 
@@ -80,7 +84,7 @@ export default function Section({ section, index, cardId }: SectionProps) {
       <div style={{flexGrow: 1}}></div>
       <Icon style={{fontSize: 24}} onClick={() => setExpand(!isExpanded)} />
     </div>
-    {isExpanded && <Input onKeyUp={handleSubmit} />}
+    {isExpanded && <Input onKeyUp={handleSubmit} ref={ref} />}
     {section.items.map(task => <ListItem key={task.id} cardId={cardId} eligible={section.eligible} task={task} />)}
   </section>    
   )
