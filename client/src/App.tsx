@@ -1,13 +1,12 @@
 import React from 'react'
-import { Layout, Card, Row, Col, Spin, Avatar } from 'antd'
+import { Layout, Card, Row, Col, Spin } from 'antd'
 import { gql , useQuery} from '@apollo/client'
 import { FetchCards } from './__generated__/FetchCards'
-import ListItem from './components/ListItem'
 import Section from './components/Section'
 import Quote from './components/Quote'
 import CreateStartup from './components/CreateStartup'
 
-const { Content, Footer } = Layout
+const { Content } = Layout
 
 const FETCH_CARDS = gql`
   query FetchCards {
@@ -44,11 +43,11 @@ const Cards: React.FC<any> = () => {
   return (
     <Row gutter={[24, 24]}>
       {modifiedData.map(card => (
-        <Col key={card.id} span={6}>
-          <Card title={<h3 style={{margin:0}}>{card.label}</h3>}>
+        <Col key={card.id} xs={{span: 24}} md={{span: 12}} lg={{span:6}}>
+          <Card title={<h3 style={{margin:0, fontWeight: 700}}>{card.label}</h3>}>
             <React.Fragment>
               {card.sections.map((section, i) => (
-                <Section section={section} index={i+1} cardId={card.id} />
+                <Section key={section.id} section={section} index={i+1} cardId={card.id} />
               ))}
               {card.sections.every(section => section.done) && (
                 <Quote />
