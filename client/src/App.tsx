@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, Row, Col, Progress, Avatar } from 'antd'
+import { Layout, Card, Row, Col, Spin, Avatar } from 'antd'
 import { gql , useQuery} from '@apollo/client'
 import { FetchCards } from './__generated__/FetchCards'
 import ListItem from './components/ListItem'
@@ -29,7 +29,7 @@ const FETCH_CARDS = gql`
 const Cards: React.FC<any> = () => {
   const { data, loading, error } = useQuery<FetchCards>(FETCH_CARDS)
 
-  if (loading) return <Progress />
+  if (loading) return <Spin />
   if (error || !data) return <p>ERROR</p>
 
   const modifiedData = data.fetchCards?.map(({ sections, ...rest }) => {
@@ -41,9 +41,9 @@ const Cards: React.FC<any> = () => {
   }) || []
 
   return (
-    <Row gutter={24}>
+    <Row gutter={[24, 24]}>
       {modifiedData.map(card => (
-        <Col key={card.id}>
+        <Col key={card.id} span={6}>
           <Card title={<h3 style={{margin:0}}>{card.label}</h3>}>
             <React.Fragment>
               {card.sections.map((section, i, sections) => (

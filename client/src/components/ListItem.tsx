@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Checkbox, Avatar } from 'antd'
+import { Checkbox } from 'antd'
 import { FetchCards_fetchCards_sections_items } from '../__generated__/FetchCards'
 import { useMutation, gql } from '@apollo/client'
 import { ToggleTask, ToggleTaskVariables } from './__generated__/ToggleTask'
@@ -20,9 +20,9 @@ mutation ToggleTask($cardId: ID!, $taskId: ID!) {
   }
 `
 
-export default ({ task, cardId, eligible }: ListItemProps) => {
+export default function ListItem({ task, cardId, eligible }: ListItemProps) {
   const [status, setStatus] = useState(task.status)
-  const [markAsDone, { data }] = useMutation<ToggleTask, ToggleTaskVariables>(TOGGLE_TASK, {
+  const [markAsDone] = useMutation<ToggleTask, ToggleTaskVariables>(TOGGLE_TASK, {
     variables: { cardId, taskId: task.id }
   })
 
