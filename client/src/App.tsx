@@ -3,6 +3,7 @@ import { Layout, Card, Row, Col, Spin, Avatar } from 'antd'
 import { gql , useQuery} from '@apollo/client'
 import { FetchCards } from './__generated__/FetchCards'
 import ListItem from './components/ListItem'
+import Section from './components/Section'
 import Quote from './components/Quote'
 import CreateStartup from './components/CreateStartup'
 
@@ -35,7 +36,7 @@ const Cards: React.FC<any> = () => {
   const modifiedData = data.fetchCards?.map(({ sections, ...rest }) => {
     return { ...rest, sections: sections.map((section, i) => ({
       ...section,
-      eligible: i > 0 ? sections[i-1].items.every(task => task.status) : true,
+      eligible: sections.slice(0, i).every(s => s.items.every(task => task.status)),
       done: section.items.every(task => task.status)
     })) }
   }) || []
@@ -46,17 +47,8 @@ const Cards: React.FC<any> = () => {
         <Col key={card.id} span={6}>
           <Card title={<h3 style={{margin:0}}>{card.label}</h3>}>
             <React.Fragment>
-              {card.sections.map((section, i, sections) => (
-                <section style={{marginBottom:20}} key={section.id}>
-                  <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6}}>
-                    <Avatar
-                      style={{backgroundColor: section.done && sections.slice(0, i).every(s => s.eligible) && section.eligible && '#000000' || '#aaaaaa', transition: '.5s all'}}>
-                        {i + 1}
-                    </Avatar>
-                    <h3 style={{margin:0}}>{section.label}</h3>
-                  </div>
-                  {section.items.map(task => <ListItem key={task.id} cardId={card.id} eligible={sections.slice(0, i).every(s => s.eligible) && section.eligible} task={task} />)}
-                </section>
+              {card.sections.map((section, i) => (
+                <Section section={section} index={i+1} cardId={card.id} />
               ))}
               {card.sections.every(section => section.done) && (
                 <Quote />
@@ -65,10 +57,9 @@ const Cards: React.FC<any> = () => {
           </Card>
         </Col>
       ))}
-
-      {data && data.fetchCards?.length === 0 && (
+      <Col span={6}>
         <CreateStartup />
-      )}
+      </Col>
     </Row>
   )
 }
