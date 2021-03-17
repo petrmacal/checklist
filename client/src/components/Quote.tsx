@@ -7,7 +7,7 @@ export default function Quote() {
       .then(res => res.json())
       .then((res) => setQuote(res.text))
       .catch(() => setQuote('I would really like to show some cool quote here, but I have probably reached the limit of this API :('))
-  })
+  }, [])
 
   return (
     <div>{quote}</div>

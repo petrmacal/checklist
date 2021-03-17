@@ -50,7 +50,7 @@ const Cards: React.FC<any> = () => {
               <React.Fragment key={section.id}>
                 <div style={{display: 'flex', alignItems: 'center'}}>
                   <Avatar
-                    style={{backgroundColor: section.done && section.eligible && '#000000' || '#aaaaaa', transition: '.5s all'}}>
+                    style={{backgroundColor: section.done && sections.slice(0, i).every(s => s.eligible) && section.eligible && '#000000' || '#aaaaaa', transition: '.5s all'}}>
                       {i + 1}
                   </Avatar>
                   <h3>{section.label}</h3>
