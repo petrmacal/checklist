@@ -76,10 +76,9 @@ const Cards: React.FC<any> = () => {
 function App() {
   return (
     <Layout>
-      <Content>
+      <Content style={{padding:32}}>
         <Cards />
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
   )
 }
