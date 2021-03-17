@@ -10,6 +10,6 @@ export default function Quote() {
   }, [])
 
   return (
-    <div>{quote}</div>
+    <div style={{fontSize: 12}}>{quote}</div>
   )
 }
